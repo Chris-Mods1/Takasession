@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRINCE SESSION GENERATOR</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #161b22;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 25px rgba(0, 255, 200, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #58a6ff;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .main input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #30363d;
+            border-radius: 8px;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            font-size: 16px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .main button, #copyb {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: #238636;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-size: 16px;
+        }
+
+        .main button:hover, #copyb:hover {
+            background-color: #2ea043;
+        }
+
+        #copy {
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #1f6feb;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        #copy:hover {
+            background-color: #388bfd;
+        }
+
+        .contact, .follow {
+            margin-top: 20px;
+        }
+
+        .contact a, .follow a {
+            text-decoration: none;
+            color: #58a6ff;
+            margin: 5px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .contact a:hover, .follow a:hover {
+            color: #1f6feb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PRINCE SESSION GENERATOR</h1>
+        </div>
+        <div class="main">
+            <form>
+                <input type="number" id="number" placeholder="+2347080xxxx">
+                <button id="submit">Get Code</button>
+                <main id="pair"></main>
+            </form>
+        </div>
+
+        <div class="contact">
+            <h3>Contact Developer</h3>
+            <a href="https:/)t.me/faraday_11" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            <a href="https://t.me/faraday_11" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+        </div>
+
+        <div class="follow">
+            <h3>Follow Our Channels</h3>
+            <a href="https://whatsapp.com/channel/0029Vakd0RY35fLr1MUiwO3O" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp Channel</a>
+            <a href="https://t.me/princetechbot" target="_blank"><i class="fab fa-telegram"></i> Telegram Channel</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+    <script>
+        const pair = document.getElementById("pair");
+        const submit = document.getElementById("submit");
+        const number = document.getElementById("number");
+
+        let isSubmitting = false;
+        let isCodeDisplayed = false;
+
+        async function Copy() {
+            const text = document.getElementById("copy").innerText;
+            await navigator.clipboard.writeText(text.replace('CODE: ', ''));
+            document.getElementById("copy").innerText = "COPIED!";
+            setTimeout(() => {
+                document.getElementById("copy").innerText = text;
+            }, 1000);
+        }
+
+        submit.addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            if (isCodeDisplayed) {
+                alert("Pause for 10 secs before requesting again..");
+                return;
+            }
+
+            if (isSubmitting) {
+                alert("Wait for the code before requesting again.");
+                return;
+            }
+
+            const cleanedNumber = number.value.replace(/[^0-9]/g, "");
+            if (!cleanedNumber || cleanedNumber.length < 11) {
+                pair.innerHTML = '<p style="color:red;">Invalid number format</p>';
+                return;
+            }
+
+            isSubmitting = true;
+            pair.innerHTML = '<p>Generating code, please wait...</p>';
+
+            try {
+                const { data } = await axios(`/pair?phone=${cleanedNumber}`);
+                const code = data.code || "Service Unavailable";
+                pair.innerHTML = `<div id="copy" onclick="Copy()">CODE: <span>${code}</span></div>`;
+                isCodeDisplayed = true;
+                setTimeout(() => isCodeDisplayed = false, 10000);
+            } catch {
+                pair.innerHTML = '<p style="color:red;">Failed to get code. Try again later.</p>';
+            } finally {
+                isSubmitting = false;
+            }
+        });
+    </script>
+</body>
+</html>
