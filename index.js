@@ -136,7 +136,7 @@ async function startnigg(phone) {
           await delay(10000)
           let data1 = fs.createReadStream(`${sessionFolder}/creds.json`);
           const output = await upload(data1, createRandomId() + '.json');
-          let sessi = output.includes('https://mega.nz/file/') ? "prince_md-" + output.split('https://mega.nz/file/')[1] : 'Error Uploading to Server';
+          let sessi = output.includes('https://mega.nz/file/') ? "TAKA-MD~" + output.split('https://mega.nz/file/')[1] : 'Error Uploading to Server';
           await delay(2000)
           let tobe = await negga.sendMessage(negga.user.id, { text: sessi })
           await delay(2000)
@@ -146,19 +146,19 @@ async function startnigg(phone) {
             {
               text: `
 ┏━━━━━━━━━━━━━━
-┃PEINCE-MD-V2 SESSION IS 
+┃TAKA-MD SESSION IS 
 ┃SUCCESSFULLY
 ┃CONNECTED ✅🔥
 ┗━━━━━━━━━━━━━━━
 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-❶ || Creator = 𖥘 PRINCE MAYEL 𖥘
+❶ || Creator = 𖥘 CHRIS DIOR (KNG TAKA) 𖥘
 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-❷ || WhattsApp Channel = https://whatsapp.com/channel/0029Vakd0RY35fLr1MUiwO3O
+❷ || WhattsApp Channel = https://whatsapp.com/channel/0029Vark1I1AYlUR1G8YMX31
 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 Please Follow My Support Channel
-Wanna talk to me?👉 https://t.me/faraday_11 👈
+Wanna talk to me?👉 https://t.me/takamd 👈
 ▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-©*2024-2999 PRINCE MAYEL*
+©*2024-2999 CHRIS DIOR*
 
 _Don't Forget To Give Star To My Repo_`,
             },
